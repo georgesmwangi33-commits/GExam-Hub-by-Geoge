@@ -32,6 +32,8 @@
   .gate-card{ width:100%; max-width:420px; text-align:center; }
   .chalk-mark{ width:64px; height:64px; margin:0 auto 28px; opacity:0.9; }
   .gate-card .eyebrow{ font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.18em; text-transform:uppercase; color:var(--chalk-dim); margin-bottom:10px; }
+  .gate-card .eyebrow strong{ font-weight:700; color:var(--chalk); }
+  .brand strong{ font-weight:700; color:var(--chalk); }
   .gate-card h1{ font-size:34px; font-weight:600; margin-bottom:8px; }
   .gate-card p.sub{ color:var(--chalk-dim); font-size:14.5px; margin-bottom:32px; line-height:1.5; }
   .field{ position:relative; margin-bottom:14px; }
@@ -117,12 +119,12 @@
         <path d="M20 34 L38 34" stroke="#e0b84a" stroke-width="2"/>
         <path d="M20 42 L32 42" stroke="#5aa9a3" stroke-width="2"/>
       </svg>
-      <div class="eyebrow">GExam Hub by George</div>
+      <div class="eyebrow"><strong>GExam Hub by George</strong></div>
       <h1>Enter to continue</h1>
-      <p class="sub">This board holds papers for Geography, Sports Science, and ICT. Enter the password to get in.</p>
+      <p class="sub">A personal archive of exam papers and study material, built to sharpen how you learn. Enter the password to get in.</p>
       <form id="gate-form" autocomplete="off">
         <div class="field"><input type="password" id="password-input" placeholder="Password" required></div>
-        <button type="submit" class="enter-btn">Unlock exam hub</button>
+        <button type="submit" class="enter-btn">Open GExam Hub</button>
       </form>
       <div id="error-msg" role="alert"></div>
     </div>
@@ -130,7 +132,7 @@
 
   <div id="dashboard">
     <div class="topbar">
-      <div class="brand"><span class="dot"></span><span>GExam Hub by George</span></div>
+      <div class="brand"><span class="dot"></span><span><strong>GExam Hub by George</strong></span></div>
       <button class="lock-btn" id="lock-btn">Lock</button>
     </div>
 
@@ -254,5 +256,4 @@
   }
 </script>
 </body>
-                                                                          </html>
-                                                                                                                                                                                                    
+</html>
