@@ -111,6 +111,14 @@
 
   .edit-note{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--chalk-dim); text-align:center; padding:40px 20px; }
   .edit-note a{ color:var(--ict); }
+
+  .contact{ max-width:1080px; margin:0 auto; padding:8px 32px 0; border-top:1px solid var(--rule); }
+  .contact-inner{ padding:28px 0; text-align:center; }
+  .contact-title{ font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--chalk-dim); margin-bottom:14px; }
+  .contact-links{ display:flex; justify-content:center; flex-wrap:wrap; gap:10px 22px; }
+  .contact-links a{ color:var(--chalk); text-decoration:none; font-size:13.5px; display:inline-flex; align-items:center; gap:6px; }
+  .contact-links a:hover{ color:var(--sport); }
+  @media (max-width: 860px){ .contact{ padding:0 20px; } }
 </style>
 </head>
 <body>
@@ -146,6 +154,17 @@
     </div>
 
     <div id="subjects-container"></div>
+
+    <div class="contact">
+      <div class="contact-inner">
+        <div class="contact-title">Get in touch</div>
+        <div class="contact-links">
+          <a href="mailto:georgesmwangi3@gmail.com">Email</a>
+          <a href="tel:+254769905629">Call</a>
+          <a href="https://wa.me/254769905629" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+      </div>
+    </div>
 
     <div class="edit-note">Managed from <a href="admin.html">admin.html</a></div>
   </div>
