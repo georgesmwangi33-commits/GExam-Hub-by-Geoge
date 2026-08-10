@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GExam Hub by George</title>
-<meta name="description" content="Exam papers for Geography, Sports Science, and ICT.">
+<meta name="description" content="A personal archive of exam papers and study material across the CBC Senior School curriculum.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
@@ -62,50 +62,54 @@
   .brand span{ font-family:'IBM Plex Mono', monospace; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:var(--chalk-dim); }
   .lock-btn{
     background:transparent; border:1px solid var(--rule); color:var(--chalk-dim);
-    font-family:'IBM Plex Mono', monospace; font-size:12px; padding:8px 14px; border-radius:5px; cursor:pointer; letter-spacing:0.05em;
+    font-family:'IBM Plex Mono', monospace; font-size:12px; padding:8px 14px; border-radius:5px; cursor:pointer;
   }
   .lock-btn:hover{ color:var(--chalk); border-color:var(--chalk-dim); }
 
-  .hero{ padding:56px 32px 32px; max-width:1080px; margin:0 auto; }
-  .hero h1{ font-size:40px; font-weight:600; margin-bottom:10px; }
-  .hero p{ color:var(--chalk-dim); font-size:15px; max-width:520px; line-height:1.55; }
+  .hero{ padding:48px 32px 20px; max-width:1080px; margin:0 auto; }
+  .hero h1{ font-size:34px; font-weight:600; margin-bottom:8px; }
+  .hero p{ color:var(--chalk-dim); font-size:14.5px; max-width:560px; line-height:1.55; }
 
-  .subjects{ max-width:1080px; margin:0 auto; padding:0 32px 80px; display:grid; grid-template-columns:repeat(3, 1fr); gap:22px; }
+  .group-section{ max-width:1080px; margin:0 auto; padding:24px 32px 8px; }
+  .group-section[data-group="core"]{ --accent: var(--chalk-dim); }
+  .group-section[data-group="stem"]{ --accent: var(--ict); }
+  .group-section[data-group="social"]{ --accent: var(--geo); }
+  .group-section[data-group="arts"]{ --accent: var(--sport); }
+  .group-title{
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--chalk-dim); margin:0 0 14px; padding-top:16px; border-top:1px solid var(--rule);
+  }
+  .subjects-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; }
   @media (max-width: 860px){
-    .subjects{ grid-template-columns:1fr; }
-    .hero{ padding:40px 20px 20px; }
-    .subjects{ padding:0 20px 60px; }
+    .subjects-grid{ grid-template-columns:1fr; }
+    .hero{ padding:36px 20px 12px; }
+    .group-section{ padding:20px 20px 4px; }
     .topbar{ padding:18px 20px; }
   }
 
   .folder{
     background:var(--board-2); border:1px solid var(--rule); border-top:3px solid var(--accent);
-    border-radius:10px; padding:24px 22px; display:flex; flex-direction:column; gap:16px;
+    border-radius:10px; padding:18px 18px; display:flex; flex-direction:column; gap:10px;
   }
-  .folder[data-subject="geo"]{ --accent: var(--geo); }
-  .folder[data-subject="sport"]{ --accent: var(--sport); }
-  .folder[data-subject="ict"]{ --accent: var(--ict); }
-
-  .folder-head{ display:flex; align-items:center; gap:12px; }
-  .folder-icon{ width:30px; height:30px; flex-shrink:0; }
-  .folder-icon svg{ width:100%; height:100%; }
-  .folder-title{ font-family:'Fraunces', serif; font-size:20px; font-weight:600; }
-  .folder-count{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--chalk-dim); }
+  .folder-head{ display:flex; align-items:center; gap:10px; }
+  .folder-dot{ width:9px; height:9px; border-radius:50%; background:var(--accent); flex-shrink:0; }
+  .folder-title{ font-family:'Fraunces', serif; font-size:16px; font-weight:600; }
+  .folder-count{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--chalk-dim); }
 
   .paper-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:2px; }
   .paper-list li{ border-top:1px solid var(--rule); }
   .paper-list li:first-child{ border-top:none; }
   .paper-list a{
-    display:flex; align-items:center; justify-content:space-between; gap:10px; padding:12px 4px;
-    color:var(--chalk); text-decoration:none; font-size:14px;
+    display:flex; align-items:center; justify-content:space-between; gap:10px; padding:10px 2px;
+    color:var(--chalk); text-decoration:none; font-size:13.5px;
   }
   .paper-list a:hover .paper-name{ color:var(--accent); }
   .paper-list a:hover .go{ transform:translateX(2px); opacity:1; }
-  .paper-meta{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--chalk-dim); }
-  .go{ opacity:0.5; transition:transform 0.12s ease, opacity 0.12s ease; color:var(--accent); font-size:15px; }
-  .empty-note{ font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--chalk-dim); padding:8px 4px; }
+  .paper-meta{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--chalk-dim); }
+  .go{ opacity:0.5; transition:transform 0.12s ease, opacity 0.12s ease; color:var(--accent); font-size:14px; }
+  .empty-note{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--chalk-dim); padding:6px 2px; }
 
-  .edit-note{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--chalk-dim); text-align:center; padding-bottom:40px; }
+  .edit-note{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--chalk-dim); text-align:center; padding:40px 20px; }
   .edit-note a{ color:var(--ict); }
 </style>
 </head>
@@ -138,34 +142,10 @@
 
     <div class="hero">
       <h1>Choose a subject</h1>
-      <p>Papers are grouped by subject below. Click a paper to open or download it.</p>
+      <p>Organised by CBC Senior School pathway. Click a paper to open or download it.</p>
     </div>
 
-    <div class="subjects">
-      <div class="folder" data-subject="geo">
-        <div class="folder-head">
-          <div class="folder-icon"><svg viewBox="0 0 30 30" fill="none"><path d="M15 3 C8 3 4 9 4 15 C4 22 15 27 15 27 C15 27 26 22 26 15 C26 9 22 3 15 3 Z" stroke="#d98a53" stroke-width="1.6"/><circle cx="15" cy="14" r="4" stroke="#d98a53" stroke-width="1.6"/></svg></div>
-          <div><div class="folder-title">Geography</div><div class="folder-count mono" id="count-geo">0 papers</div></div>
-        </div>
-        <ul class="paper-list" id="list-geo"></ul>
-      </div>
-
-      <div class="folder" data-subject="sport">
-        <div class="folder-head">
-          <div class="folder-icon"><svg viewBox="0 0 30 30" fill="none"><circle cx="15" cy="9" r="4" stroke="#e0b84a" stroke-width="1.6"/><path d="M15 13 L15 20 M15 16 L8 21 M15 16 L22 21 M15 20 L10 27 M15 20 L20 27" stroke="#e0b84a" stroke-width="1.6" stroke-linecap="round"/></svg></div>
-          <div><div class="folder-title">Sports Science</div><div class="folder-count mono" id="count-sport">0 papers</div></div>
-        </div>
-        <ul class="paper-list" id="list-sport"></ul>
-      </div>
-
-      <div class="folder" data-subject="ict">
-        <div class="folder-head">
-          <div class="folder-icon"><svg viewBox="0 0 30 30" fill="none"><rect x="5" y="7" width="20" height="13" rx="1.5" stroke="#5aa9a3" stroke-width="1.6"/><path d="M11 24 L19 24 M15 20 L15 24" stroke="#5aa9a3" stroke-width="1.6" stroke-linecap="round"/><path d="M9 11 L13 11 M9 14 L17 14" stroke="#5aa9a3" stroke-width="1.4" stroke-linecap="round"/></svg></div>
-          <div><div class="folder-title">ICT</div><div class="folder-count mono" id="count-ict">0 papers</div></div>
-        </div>
-        <ul class="paper-list" id="list-ict"></ul>
-      </div>
-    </div>
+    <div id="subjects-container"></div>
 
     <div class="edit-note">Managed from <a href="admin.html">admin.html</a></div>
   </div>
@@ -180,12 +160,67 @@
 
   const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+  // CBC Senior School subject list, grouped by pathway
+  const GROUPS = [
+    { id: 'core',   label: 'Core Subjects' },
+    { id: 'stem',   label: 'STEM' },
+    { id: 'social', label: 'Social Sciences' },
+    { id: 'arts',   label: 'Arts & Sports Science' }
+  ];
+
+  const SUBJECTS = [
+    { id: 'english', name: 'English', group: 'core' },
+    { id: 'kiswahili-ksl', name: 'Kiswahili / Kenyan Sign Language', group: 'core' },
+    { id: 'mathematics', name: 'Mathematics', group: 'core' },
+    { id: 'csl', name: 'Community Service Learning', group: 'core' },
+    { id: 'pe', name: 'Physical Education', group: 'core' },
+
+    { id: 'biology', name: 'Biology', group: 'stem' },
+    { id: 'chemistry', name: 'Chemistry', group: 'stem' },
+    { id: 'physics', name: 'Physics', group: 'stem' },
+    { id: 'general-science', name: 'General Science', group: 'stem' },
+    { id: 'advanced-mathematics', name: 'Advanced Mathematics', group: 'stem' },
+    { id: 'computer-studies', name: 'Computer Studies', group: 'stem' },
+    { id: 'home-science', name: 'Home Science', group: 'stem' },
+    { id: 'agriculture', name: 'Agriculture', group: 'stem' },
+    { id: 'drawing-design', name: 'Drawing and Design', group: 'stem' },
+    { id: 'aviation-technology', name: 'Aviation Technology', group: 'stem' },
+    { id: 'building-construction', name: 'Building and Construction', group: 'stem' },
+    { id: 'electrical-technology', name: 'Electrical Technology', group: 'stem' },
+    { id: 'metal-technology', name: 'Metal Technology', group: 'stem' },
+    { id: 'power-mechanics', name: 'Power Mechanics', group: 'stem' },
+    { id: 'wood-technology', name: 'Wood Technology', group: 'stem' },
+    { id: 'marine-fisheries', name: 'Marine and Fisheries Technology', group: 'stem' },
+
+    { id: 'history-citizenship', name: 'History and Citizenship', group: 'social' },
+    { id: 'geography', name: 'Geography', group: 'social' },
+    { id: 'cre', name: 'Christian Religious Education', group: 'social' },
+    { id: 'ire', name: 'Islamic Religious Education', group: 'social' },
+    { id: 'hre', name: 'Hindu Religious Education', group: 'social' },
+    { id: 'business-studies', name: 'Business Studies', group: 'social' },
+    { id: 'literature-english', name: 'Literature in English', group: 'social' },
+    { id: 'advanced-english', name: 'Advanced English', group: 'social' },
+    { id: 'indigenous-languages', name: 'Indigenous Languages', group: 'social' },
+    { id: 'fasihi-kiswahili', name: 'Fasihi ya Kiswahili', group: 'social' },
+    { id: 'arabic', name: 'Arabic', group: 'social' },
+    { id: 'french', name: 'French', group: 'social' },
+    { id: 'german', name: 'German', group: 'social' },
+    { id: 'mandarin', name: 'Mandarin', group: 'social' },
+
+    { id: 'sports-science', name: 'Sports Science', group: 'arts' },
+    { id: 'visual-arts', name: 'Visual Arts', group: 'arts' },
+    { id: 'performing-arts', name: 'Performing Arts', group: 'arts' },
+    { id: 'film-media', name: 'Film and Media Studies', group: 'arts' },
+    { id: 'fine-art', name: 'Fine Art', group: 'arts' }
+  ];
+
   const gate = document.getElementById('gate');
   const dashboard = document.getElementById('dashboard');
   const form = document.getElementById('gate-form');
   const input = document.getElementById('password-input');
   const errorMsg = document.getElementById('error-msg');
   const lockBtn = document.getElementById('lock-btn');
+  const subjectsContainer = document.getElementById('subjects-container');
 
   form.addEventListener('submit', function(e){
     e.preventDefault();
@@ -193,6 +228,7 @@
       gate.style.display = 'none';
       dashboard.style.display = 'block';
       errorMsg.textContent = '';
+      renderSections();
       loadExams();
     } else {
       errorMsg.textContent = 'Incorrect password. Try again.';
@@ -208,31 +244,47 @@
     input.focus();
   });
 
+  function renderSections(){
+    subjectsContainer.innerHTML = GROUPS.map(function(g){
+      const subs = SUBJECTS.filter(function(s){ return s.group === g.id; });
+      return '<section class="group-section" data-group="' + g.id + '">' +
+        '<h2 class="group-title">' + g.label + '</h2>' +
+        '<div class="subjects-grid">' +
+        subs.map(function(s){
+          return '<div class="folder">' +
+            '<div class="folder-head"><span class="folder-dot"></span>' +
+            '<div><div class="folder-title">' + s.name + '</div>' +
+            '<div class="folder-count mono" id="count-' + s.id + '">0 papers</div></div></div>' +
+            '<ul class="paper-list" id="list-' + s.id + '"></ul>' +
+          '</div>';
+        }).join('') +
+        '</div></section>';
+    }).join('');
+  }
+
   async function loadExams(){
     const { data, error } = await supabaseClient
       .from('exams')
       .select('*')
       .order('created_at', { ascending: false });
 
-    const lists = { geo: [], sport: [], ict: [] };
-
     if(error){
       console.error(error);
-      ['geo','sport','ict'].forEach(function(s){
-        document.getElementById('list-'+s).innerHTML =
-          '<li class="empty-note">Could not load exams. Check the Supabase keys in index.html.</li>';
-      });
       return;
     }
 
+    const bySubject = {};
     (data || []).forEach(function(row){
-      if(lists[row.subject]) lists[row.subject].push(row);
+      if(!bySubject[row.subject]) bySubject[row.subject] = [];
+      bySubject[row.subject].push(row);
     });
 
-    ['geo','sport','ict'].forEach(function(s){
-      const listEl = document.getElementById('list-'+s);
-      const countEl = document.getElementById('count-'+s);
-      const rows = lists[s];
+    SUBJECTS.forEach(function(s){
+      const listEl = document.getElementById('list-' + s.id);
+      const countEl = document.getElementById('count-' + s.id);
+      const rows = bySubject[s.id] || [];
+      if(!listEl || !countEl) return;
+
       countEl.textContent = rows.length + (rows.length === 1 ? ' paper' : ' papers');
 
       if(rows.length === 0){
