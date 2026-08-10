@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GExam Hub by George— Admin</title>
+<title>GExam Hub by George — Admin</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -95,7 +95,7 @@
 
   <div id="login-screen">
     <div class="card">
-      <div class="eyebrow">Exam Room · Admin</div>
+      <div class="eyebrow">GExam Hub by George · Admin</div>
       <h1>Sign in</h1>
       <form id="login-form" autocomplete="off">
         <div class="field"><label for="email">Email</label><input type="email" id="email" required></div>
@@ -108,7 +108,7 @@
 
   <div id="panel">
     <div class="topbar">
-      <div class="brand"><span class="dot"></span><span>Exam Room · Admin</span></div>
+      <div class="brand"><span class="dot"></span><span>GExam Hub by George · Admin</span></div>
       <button class="ghost-btn" id="signout-btn">Sign out</button>
     </div>
 
@@ -120,9 +120,54 @@
             <div class="field"><label for="title">Title</label><input type="text" id="title" placeholder="Paper 1 — Physical Geography" required></div>
             <div class="field"><label for="subject">Subject</label>
               <select id="subject" required>
-                <option value="geo">Geography</option>
-                <option value="sport">Sports Science</option>
-                <option value="ict">ICT</option>
+                <optgroup label="Core Subjects">
+                  <option value="english">English</option>
+                  <option value="kiswahili-ksl">Kiswahili / Kenyan Sign Language</option>
+                  <option value="mathematics">Mathematics</option>
+                  <option value="csl">Community Service Learning</option>
+                  <option value="pe">Physical Education</option>
+                </optgroup>
+                <optgroup label="STEM">
+                  <option value="biology">Biology</option>
+                  <option value="chemistry">Chemistry</option>
+                  <option value="physics">Physics</option>
+                  <option value="general-science">General Science</option>
+                  <option value="advanced-mathematics">Advanced Mathematics</option>
+                  <option value="computer-studies">Computer Studies</option>
+                  <option value="home-science">Home Science</option>
+                  <option value="agriculture">Agriculture</option>
+                  <option value="drawing-design">Drawing and Design</option>
+                  <option value="aviation-technology">Aviation Technology</option>
+                  <option value="building-construction">Building and Construction</option>
+                  <option value="electrical-technology">Electrical Technology</option>
+                  <option value="metal-technology">Metal Technology</option>
+                  <option value="power-mechanics">Power Mechanics</option>
+                  <option value="wood-technology">Wood Technology</option>
+                  <option value="marine-fisheries">Marine and Fisheries Technology</option>
+                </optgroup>
+                <optgroup label="Social Sciences">
+                  <option value="history-citizenship">History and Citizenship</option>
+                  <option value="geography">Geography</option>
+                  <option value="cre">Christian Religious Education</option>
+                  <option value="ire">Islamic Religious Education</option>
+                  <option value="hre">Hindu Religious Education</option>
+                  <option value="business-studies">Business Studies</option>
+                  <option value="literature-english">Literature in English</option>
+                  <option value="advanced-english">Advanced English</option>
+                  <option value="indigenous-languages">Indigenous Languages</option>
+                  <option value="fasihi-kiswahili">Fasihi ya Kiswahili</option>
+                  <option value="arabic">Arabic</option>
+                  <option value="french">French</option>
+                  <option value="german">German</option>
+                  <option value="mandarin">Mandarin</option>
+                </optgroup>
+                <optgroup label="Arts & Sports Science">
+                  <option value="sports-science">Sports Science</option>
+                  <option value="visual-arts">Visual Arts</option>
+                  <option value="performing-arts">Performing Arts</option>
+                  <option value="film-media">Film and Media Studies</option>
+                  <option value="fine-art">Fine Art</option>
+                </optgroup>
               </select>
             </div>
           </div>
@@ -284,4 +329,5 @@
   checkSession();
 </script>
 </body>
-</html>
+            </html>
+  
