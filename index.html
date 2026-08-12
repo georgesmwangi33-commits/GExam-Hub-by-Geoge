@@ -12,7 +12,7 @@
   :root{
     --board:#1c2b29; --board-2:#233833;
     --chalk:#f2ede2; --chalk-dim:#c8cabb;
-    --geo:#d98a53; --sport:#e0b84a; --ict:#5aa9a3; --default:#8aa39e;
+    --geo:#d98a53; --sport:#e0b84a; --ict:#5aa9a3;
     --rule: rgba(242,237,226,0.16);
   }
   *{box-sizing:border-box;}
@@ -22,13 +22,13 @@
     font-family:'IBM Plex Sans', sans-serif; min-height:100vh; -webkit-font-smoothing:antialiased;
   }
   h1,h2,h3{font-family:'Fraunces', serif; margin:0;}
- .mono{font-family:'IBM Plex Mono', monospace;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
 
   #login-screen{ min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px; }
- .card{ width:100%; max-width:400px; }
- .eyebrow{ font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.18em; text-transform:uppercase; color:var(--chalk-dim); margin-bottom:10px; }
- .card h1{ font-size:30px; font-weight:600; margin-bottom:24px; }
- .field{ margin-bottom:14px; }
+  .card{ width:100%; max-width:400px; }
+  .eyebrow{ font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.18em; text-transform:uppercase; color:var(--chalk-dim); margin-bottom:10px; }
+  .card h1{ font-size:30px; font-weight:600; margin-bottom:24px; }
+  .field{ margin-bottom:14px; }
   label{ display:block; font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--chalk-dim); margin-bottom:6px; letter-spacing:0.04em; }
   input, select{
     width:100%; background:var(--board-2); border:1px solid var(--rule); color:var(--chalk);
@@ -36,62 +36,59 @@
   }
   input:focus, select:focus{ border-color:var(--sport); background:#28403a; }
   input:focus-visible, select:focus-visible{ outline:2px solid var(--sport); outline-offset:2px; }
- .btn{
+  .btn{
     padding:12px 18px; border-radius:6px; border:none; background:var(--chalk); color:var(--board);
     font-family:'IBM Plex Sans', sans-serif; font-weight:600; font-size:14.5px; cursor:pointer;
   }
- .btn:hover{ background:#ffffff; }
- .btn:active{ transform:scale(0.98); }
- .btn:focus-visible{ outline:2px solid var(--sport); outline-offset:2px; }
- .btn-block{ width:100%; }
+  .btn:hover{ background:#ffffff; }
+  .btn:active{ transform:scale(0.98); }
+  .btn:focus-visible{ outline:2px solid var(--sport); outline-offset:2px; }
+  .btn-block{ width:100%; }
   #login-error{ color:var(--geo); font-size:13px; font-family:'IBM Plex Mono', monospace; margin-top:12px; min-height:16px; }
 
   #panel{ display:none; }
- .topbar{ display:flex; align-items:center; justify-content:space-between; padding:22px 32px; border-bottom:1px solid var(--rule); }
- .brand{ display:flex; align-items:center; gap:12px; }
- .brand.dot{ width:9px; height:9px; border-radius:50%; background:var(--sport); }
- .brand span{ font-family:'IBM Plex Mono', monospace; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:var(--chalk-dim); }
- .ghost-btn{
+  .topbar{ display:flex; align-items:center; justify-content:space-between; padding:22px 32px; border-bottom:1px solid var(--rule); }
+  .brand{ display:flex; align-items:center; gap:12px; }
+  .brand .dot{ width:9px; height:9px; border-radius:50%; background:var(--sport); }
+  .brand span{ font-family:'IBM Plex Mono', monospace; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:var(--chalk-dim); }
+  .ghost-btn{
     background:transparent; border:1px solid var(--rule); color:var(--chalk-dim);
     font-family:'IBM Plex Mono', monospace; font-size:12px; padding:8px 14px; border-radius:5px; cursor:pointer;
   }
- .ghost-btn:hover{ color:var(--chalk); border-color:var(--chalk-dim); }
+  .ghost-btn:hover{ color:var(--chalk); border-color:var(--chalk-dim); }
 
- .wrap{ max-width:760px; margin:0 auto; padding:44px 32px 80px; }
-  @media (max-width: 700px){.wrap{ padding:32px 20px 60px; }.topbar{ padding:18px 20px; } }
+  .wrap{ max-width:760px; margin:0 auto; padding:44px 32px 80px; }
+  @media (max-width: 700px){ .wrap{ padding:32px 20px 60px; } .topbar{ padding:18px 20px; } }
 
- .section-title{ font-size:22px; font-weight:600; margin-bottom:18px; }
- .upload-card{ background:var(--board-2); border:1px solid var(--rule); border-radius:10px; padding:24px; margin-bottom:44px; }
- .row2{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-  @media (max-width: 520px){.row2{ grid-template-columns:1fr; } }
+  .section-title{ font-size:22px; font-weight:600; margin-bottom:18px; }
+  .upload-card{ background:var(--board-2); border:1px solid var(--rule); border-radius:10px; padding:24px; margin-bottom:44px; }
+  .row2{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  @media (max-width: 520px){ .row2{ grid-template-columns:1fr; } }
 
   #upload-status{ font-family:'IBM Plex Mono', monospace; font-size:13px; margin-top:14px; min-height:16px; }
   #upload-status.ok{ color:var(--ict); }
   #upload-status.err{ color:var(--geo); }
 
- .exam-row{
+  .exam-row{
     display:flex; align-items:center; justify-content:space-between; gap:12px;
     padding:14px 4px; border-top:1px solid var(--rule);
   }
- .exam-row:first-child{ border-top:none; }
- .exam-info.t{ font-size:14.5px; }
- .exam-info.m{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--chalk-dim); margin-top:2px; }
- .subject-pill{
+  .exam-row:first-child{ border-top:none; }
+  .exam-info .t{ font-size:14.5px; }
+  .exam-info .m{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--chalk-dim); margin-top:2px; }
+  .subject-pill{
     font-family:'IBM Plex Mono', monospace; font-size:10px; padding:3px 8px; border-radius:20px;
     text-transform:uppercase; letter-spacing:0.04em; margin-right:8px;
-    background:rgba(138,163,158,0.18); color:var(--default);
   }
- .subject-pill.geo{ background:rgba(217,138,83,0.18); color:var(--geo); }
- .subject-pill.sport{ background:rgba(224,184,74,0.18); color:var(--sport); }
- .subject-pill.ict{ background:rgba(90,169,163,0.18); color:var(--ict); }
- .row-actions{ display:flex; gap:8px; }
- .delete-btn,.download-btn{
+  .subject-pill.geo{ background:rgba(217,138,83,0.18); color:var(--geo); }
+  .subject-pill.sport{ background:rgba(224,184,74,0.18); color:var(--sport); }
+  .subject-pill.ict{ background:rgba(90,169,163,0.18); color:var(--ict); }
+  .delete-btn{
     background:transparent; border:1px solid var(--rule); color:var(--chalk-dim);
-    font-family:'IBM Plex Mono', monospace; font-size:11px; padding:6px 10px; border-radius:5px; cursor:pointer; text-decoration:none;
+    font-family:'IBM Plex Mono', monospace; font-size:11px; padding:6px 10px; border-radius:5px; cursor:pointer; flex-shrink:0;
   }
- .delete-btn:hover{ color:var(--geo); border-color:var(--geo); }
- .download-btn:hover{ color:var(--ict); border-color:var(--ict); }
- .empty-note{ font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--chalk-dim); padding:8px 4px; }
+  .delete-btn:hover{ color:var(--geo); border-color:var(--geo); }
+  .empty-note{ font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--chalk-dim); padding:8px 4px; }
 </style>
 </head>
 <body>
@@ -177,7 +174,7 @@
           </div>
           <div class="row2">
             <div class="field"><label for="duration">Duration (optional)</label><input type="text" id="duration" placeholder="1 hr 30 min"></div>
-            <div class="field"><label for="file">File - PDF/DOCX, Max 10MB</label><input type="file" id="file" accept=".pdf,.doc,.docx" required></div>
+            <div class="field"><label for="file">File</label><input type="file" id="file" required></div>
           </div>
           <button type="submit" class="btn" id="upload-btn">Upload exam</button>
         </form>
@@ -197,13 +194,6 @@
   // =========================================================================
 
   const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-  const SUBJECT_COLOR_MAP = {
-    'geography': 'geo', 'sports-science': 'sport', 'ict': 'ict'
-  };
-  function getSubjectClass(subject){
-    return SUBJECT_COLOR_MAP[subject] || 'default';
-  }
 
   const loginScreen = document.getElementById('login-screen');
   const panel = document.getElementById('panel');
@@ -263,28 +253,19 @@
       const fileInput = document.getElementById('file');
       const file = fileInput.files[0];
 
-      // VALIDATION
-      const allowed = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
-      if(!allowed.includes(file.type)){
-        throw new Error('Only PDF and DOCX files allowed');
-      }
-      if(file.size > 10 * 1024 * 1024){
-        throw new Error('File too large. Max 10MB');
-      }
-
       const safeName = Date.now() + '-' + file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
       const path = subject + '/' + safeName;
 
       const { error: uploadError } = await supabaseClient
-       .storage.from(BUCKET_NAME)
-       .upload(path, file, { cacheControl: '3600', upsert: false });
+        .storage.from(BUCKET_NAME)
+        .upload(path, file, { cacheControl: '3600', upsert: false });
       if(uploadError) throw uploadError;
 
       const { data: publicUrlData } = supabaseClient.storage.from(BUCKET_NAME).getPublicUrl(path);
 
       const { error: insertError } = await supabaseClient
-       .from('exams')
-       .insert({
+        .from('exams')
+        .insert({
           title: title,
           subject: subject,
           duration: duration,
@@ -307,9 +288,9 @@
 
   async function loadExamList(){
     const { data, error } = await supabaseClient
-     .from('exams')
-     .select('*')
-     .order('created_at', { ascending: false });
+      .from('exams')
+      .select('*')
+      .order('created_at', { ascending: false });
 
     if(error){
       examListEl.innerHTML = '<div class="empty-note">Could not load exams: ' + error.message + '</div>';
@@ -323,14 +304,11 @@
     examListEl.innerHTML = data.map(function(row){
       return '<div class="exam-row" data-id="' + row.id + '" data-path="' + escapeAttr(row.file_path) + '">' +
         '<div class="exam-info">' +
-          '<span class="subject-pill ' + getSubjectClass(row.subject) + '">' + row.subject + '</span>' +
+          '<span class="subject-pill ' + row.subject + '">' + row.subject + '</span>' +
           '<span class="t">' + escapeHtml(row.title) + '</span>' +
           '<div class="m">' + escapeHtml(row.duration || '') + '</div>' +
         '</div>' +
-        '<div class="row-actions">' +
-          '<a class="download-btn" href="' + row.file_url + '" target="_blank">Download</a>' +
-          '<button class="delete-btn" onclick="deleteExam(\'' + row.id + '\', \'' + escapeAttr(row.file_path) + '\')">Delete</button>' +
-        '</div>' +
+        '<button class="delete-btn" onclick="deleteExam(\'' + row.id + '\', \'' + escapeAttr(row.file_path) + '\')">Delete</button>' +
       '</div>';
     }).join('');
   }
@@ -352,4 +330,4 @@
   checkSession();
 </script>
 </body>
-                    </html>
+  </html>
