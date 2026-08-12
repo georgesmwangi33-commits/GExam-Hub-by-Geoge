@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GExam Hub by George</title>
-<meta name="description" content="A personal archive of exam papers and study material across the CBC Senior School curriculum.">
+<title>GExam Hub by George — Admin</title>
+<meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
@@ -12,330 +12,344 @@
   :root{
     --board:#1c2b29; --board-2:#233833;
     --chalk:#f2ede2; --chalk-dim:#c8cabb;
-    --geo:#d98a53; --sport:#e0b84a; --ict:#5aa9a3;
+    --geo:#d98a53; --sport:#e0b84a; --ict:#5aa9a3; --default:#8aa39e;
     --rule: rgba(242,237,226,0.16);
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
   body{
     background:var(--board); color:var(--chalk);
-    font-family:'IBM Plex Sans', sans-serif; min-height:100vh;
-    -webkit-font-smoothing:antialiased;
-    background-image:
-      radial-gradient(ellipse at top left, rgba(255,255,255,0.03), transparent 60%),
-      radial-gradient(ellipse at bottom right, rgba(255,255,255,0.03), transparent 60%);
+    font-family:'IBM Plex Sans', sans-serif; min-height:100vh; -webkit-font-smoothing:antialiased;
   }
   h1,h2,h3{font-family:'Fraunces', serif; margin:0;}
-  .mono{font-family:'IBM Plex Mono', monospace;}
+ .mono{font-family:'IBM Plex Mono', monospace;}
 
-  #gate{ min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px; }
-  .gate-card{ width:100%; max-width:420px; text-align:center; }
-  .chalk-mark{ width:64px; height:64px; margin:0 auto 28px; opacity:0.9; }
-  .gate-card .eyebrow{ font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.18em; text-transform:uppercase; color:var(--chalk-dim); margin-bottom:10px; }
-  .gate-card .eyebrow strong{ font-weight:700; color:var(--chalk); }
-  .brand strong{ font-weight:700; color:var(--chalk); }
-  .gate-card h1{ font-size:34px; font-weight:600; margin-bottom:8px; }
-  .gate-card p.sub{ color:var(--chalk-dim); font-size:14.5px; margin-bottom:32px; line-height:1.5; }
-  .field{ position:relative; margin-bottom:14px; }
-  input[type="password"]{
+  #login-screen{ min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px; }
+ .card{ width:100%; max-width:400px; }
+ .eyebrow{ font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.18em; text-transform:uppercase; color:var(--chalk-dim); margin-bottom:10px; }
+ .card h1{ font-size:30px; font-weight:600; margin-bottom:24px; }
+ .field{ margin-bottom:14px; }
+  label{ display:block; font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--chalk-dim); margin-bottom:6px; letter-spacing:0.04em; }
+  input, select{
     width:100%; background:var(--board-2); border:1px solid var(--rule); color:var(--chalk);
-    font-family:'IBM Plex Mono', monospace; font-size:15px; padding:14px 16px; border-radius:6px;
-    outline:none; transition:border-color 0.15s ease, background 0.15s ease; letter-spacing:0.03em;
+    font-family:'IBM Plex Mono', monospace; font-size:14.5px; padding:12px 14px; border-radius:6px; outline:none;
   }
-  input::placeholder{ color:#8f9691; }
-  input:focus{ border-color:var(--sport); background:#28403a; }
-  input:focus-visible{ outline:2px solid var(--sport); outline-offset:2px; }
-  .enter-btn{
-    width:100%; padding:14px 16px; border-radius:6px; border:none; background:var(--chalk); color:var(--board);
-    font-family:'IBM Plex Sans', sans-serif; font-weight:600; font-size:15px; cursor:pointer;
-    transition:transform 0.12s ease, background 0.12s ease;
+  input:focus, select:focus{ border-color:var(--sport); background:#28403a; }
+  input:focus-visible, select:focus-visible{ outline:2px solid var(--sport); outline-offset:2px; }
+ .btn{
+    padding:12px 18px; border-radius:6px; border:none; background:var(--chalk); color:var(--board);
+    font-family:'IBM Plex Sans', sans-serif; font-weight:600; font-size:14.5px; cursor:pointer;
   }
-  .enter-btn:hover{ background:#ffffff; }
-  .enter-btn:active{ transform:scale(0.98); }
-  .enter-btn:focus-visible{ outline:2px solid var(--sport); outline-offset:2px; }
-  #error-msg{ color:var(--geo); font-size:13px; font-family:'IBM Plex Mono', monospace; margin-top:14px; min-height:18px; }
+ .btn:hover{ background:#ffffff; }
+ .btn:active{ transform:scale(0.98); }
+ .btn:focus-visible{ outline:2px solid var(--sport); outline-offset:2px; }
+ .btn-block{ width:100%; }
+  #login-error{ color:var(--geo); font-size:13px; font-family:'IBM Plex Mono', monospace; margin-top:12px; min-height:16px; }
 
-  #dashboard{ display:none; }
-  .topbar{ display:flex; align-items:center; justify-content:space-between; padding:22px 32px; border-bottom:1px solid var(--rule); }
-  .brand{ display:flex; align-items:center; gap:12px; }
-  .brand .dot{ width:9px; height:9px; border-radius:50%; background:var(--sport); }
-  .brand span{ font-family:'IBM Plex Mono', monospace; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:var(--chalk-dim); }
-  .lock-btn{
+  #panel{ display:none; }
+ .topbar{ display:flex; align-items:center; justify-content:space-between; padding:22px 32px; border-bottom:1px solid var(--rule); }
+ .brand{ display:flex; align-items:center; gap:12px; }
+ .brand.dot{ width:9px; height:9px; border-radius:50%; background:var(--sport); }
+ .brand span{ font-family:'IBM Plex Mono', monospace; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:var(--chalk-dim); }
+ .ghost-btn{
     background:transparent; border:1px solid var(--rule); color:var(--chalk-dim);
     font-family:'IBM Plex Mono', monospace; font-size:12px; padding:8px 14px; border-radius:5px; cursor:pointer;
   }
-  .lock-btn:hover{ color:var(--chalk); border-color:var(--chalk-dim); }
+ .ghost-btn:hover{ color:var(--chalk); border-color:var(--chalk-dim); }
 
-  .hero{ padding:48px 32px 20px; max-width:1080px; margin:0 auto; }
-  .hero h1{ font-size:34px; font-weight:600; margin-bottom:8px; }
-  .hero p{ color:var(--chalk-dim); font-size:14.5px; max-width:560px; line-height:1.55; }
+ .wrap{ max-width:760px; margin:0 auto; padding:44px 32px 80px; }
+  @media (max-width: 700px){.wrap{ padding:32px 20px 60px; }.topbar{ padding:18px 20px; } }
 
-  .group-section{ max-width:1080px; margin:0 auto; padding:24px 32px 8px; }
-  .group-section[data-group="core"]{ --accent: var(--chalk-dim); }
-  .group-section[data-group="stem"]{ --accent: var(--ict); }
-  .group-section[data-group="social"]{ --accent: var(--geo); }
-  .group-section[data-group="arts"]{ --accent: var(--sport); }
-  .group-title{
-    font-family:'IBM Plex Mono', monospace; font-size:11.5px; letter-spacing:0.12em; text-transform:uppercase;
-    color:var(--chalk-dim); margin:0 0 14px; padding-top:16px; border-top:1px solid var(--rule);
+ .section-title{ font-size:22px; font-weight:600; margin-bottom:18px; }
+ .upload-card{ background:var(--board-2); border:1px solid var(--rule); border-radius:10px; padding:24px; margin-bottom:44px; }
+ .row2{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  @media (max-width: 520px){.row2{ grid-template-columns:1fr; } }
+
+  #upload-status{ font-family:'IBM Plex Mono', monospace; font-size:13px; margin-top:14px; min-height:16px; }
+  #upload-status.ok{ color:var(--ict); }
+  #upload-status.err{ color:var(--geo); }
+
+ .exam-row{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:14px 4px; border-top:1px solid var(--rule);
   }
-  .subjects-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; }
-  @media (max-width: 860px){
-    .subjects-grid{ grid-template-columns:1fr; }
-    .hero{ padding:36px 20px 12px; }
-    .group-section{ padding:20px 20px 4px; }
-    .topbar{ padding:18px 20px; }
+ .exam-row:first-child{ border-top:none; }
+ .exam-info.t{ font-size:14.5px; }
+ .exam-info.m{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--chalk-dim); margin-top:2px; }
+ .subject-pill{
+    font-family:'IBM Plex Mono', monospace; font-size:10px; padding:3px 8px; border-radius:20px;
+    text-transform:uppercase; letter-spacing:0.04em; margin-right:8px;
+    background:rgba(138,163,158,0.18); color:var(--default);
   }
-
-  .folder{
-    background:var(--board-2); border:1px solid var(--rule); border-top:3px solid var(--accent);
-    border-radius:10px; padding:18px 18px; display:flex; flex-direction:column; gap:10px;
+ .subject-pill.geo{ background:rgba(217,138,83,0.18); color:var(--geo); }
+ .subject-pill.sport{ background:rgba(224,184,74,0.18); color:var(--sport); }
+ .subject-pill.ict{ background:rgba(90,169,163,0.18); color:var(--ict); }
+ .row-actions{ display:flex; gap:8px; }
+ .delete-btn,.download-btn{
+    background:transparent; border:1px solid var(--rule); color:var(--chalk-dim);
+    font-family:'IBM Plex Mono', monospace; font-size:11px; padding:6px 10px; border-radius:5px; cursor:pointer; text-decoration:none;
   }
-  .folder-head{ display:flex; align-items:center; gap:10px; }
-  .folder-dot{ width:9px; height:9px; border-radius:50%; background:var(--accent); flex-shrink:0; }
-  .folder-title{ font-family:'Fraunces', serif; font-size:16px; font-weight:600; }
-  .folder-count{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--chalk-dim); }
-
-  .paper-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:2px; }
-  .paper-list li{ border-top:1px solid var(--rule); }
-  .paper-list li:first-child{ border-top:none; }
-  .paper-list a{
-    display:flex; align-items:center; justify-content:space-between; gap:10px; padding:10px 2px;
-    color:var(--chalk); text-decoration:none; font-size:13.5px;
-  }
-  .paper-list a:hover .paper-name{ color:var(--accent); }
-  .paper-list a:hover .go{ transform:translateX(2px); opacity:1; }
-  .paper-meta{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--chalk-dim); }
-  .go{ opacity:0.5; transition:transform 0.12s ease, opacity 0.12s ease; color:var(--accent); font-size:14px; }
-  .empty-note{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--chalk-dim); padding:6px 2px; }
-
-  .edit-note{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--chalk-dim); text-align:center; padding:40px 20px; }
-  .edit-note a{ color:var(--ict); }
-
-  .contact{ max-width:1080px; margin:0 auto; padding:8px 32px 0; border-top:1px solid var(--rule); }
-  .contact-inner{ padding:28px 0; text-align:center; }
-  .contact-title{ font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--chalk-dim); margin-bottom:16px; }
-  .contact-rows{ display:flex; flex-direction:column; align-items:center; gap:8px; }
-  .contact-rows div{ font-size:14px; }
-  .contact-label{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--chalk-dim); margin-right:6px; }
-  .contact-rows a{ color:var(--chalk); text-decoration:underline; text-decoration-color:var(--rule); }
-  .contact-rows a:hover{ color:var(--sport); text-decoration-color:var(--sport); }
-  @media (max-width: 860px){ .contact{ padding:0 20px; } }
-
-  .admin-link{ text-align:center; padding:20px 20px 40px; }
-  .admin-link a{
-    font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--chalk-dim);
-    text-decoration:none; border:1px solid var(--rule); border-radius:20px; padding:8px 16px; display:inline-flex; align-items:center; gap:6px;
-  }
-  .admin-link a:hover{ color:var(--chalk); border-color:var(--chalk-dim); }
+ .delete-btn:hover{ color:var(--geo); border-color:var(--geo); }
+ .download-btn:hover{ color:var(--ict); border-color:var(--ict); }
+ .empty-note{ font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--chalk-dim); padding:8px 4px; }
 </style>
 </head>
 <body>
 
-  <div id="gate">
-    <div class="gate-card">
-      <svg class="chalk-mark" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 16 L52 16 L52 48 L12 48 Z" stroke="#f2ede2" stroke-width="2" opacity="0.5"/>
-        <path d="M20 26 L44 26" stroke="#d98a53" stroke-width="2"/>
-        <path d="M20 34 L38 34" stroke="#e0b84a" stroke-width="2"/>
-        <path d="M20 42 L32 42" stroke="#5aa9a3" stroke-width="2"/>
-      </svg>
-      <div class="eyebrow"><strong>GExam Hub by George</strong></div>
-      <h1>Enter to continue</h1>
-      <p class="sub">A personal archive of exam papers and study material, built to sharpen how you learn. Enter the password to get in.</p>
-      <form id="gate-form" autocomplete="off">
-        <div class="field"><input type="password" id="password-input" placeholder="Password" required></div>
-        <button type="submit" class="enter-btn">Open GExam Hub</button>
+  <div id="login-screen">
+    <div class="card">
+      <div class="eyebrow">GExam Hub by George · Admin</div>
+      <h1>Sign in</h1>
+      <form id="login-form" autocomplete="off">
+        <div class="field"><label for="email">Email</label><input type="email" id="email" required></div>
+        <div class="field"><label for="pw">Password</label><input type="password" id="pw" required></div>
+        <button type="submit" class="btn btn-block">Sign in</button>
       </form>
-      <div id="error-msg" role="alert"></div>
+      <div id="login-error"></div>
     </div>
   </div>
 
-  <div id="dashboard">
+  <div id="panel">
     <div class="topbar">
-      <div class="brand"><span class="dot"></span><span><strong>GExam Hub by George</strong></span></div>
-      <button class="lock-btn" id="lock-btn">Lock</button>
+      <div class="brand"><span class="dot"></span><span>GExam Hub by George · Admin</span></div>
+      <button class="ghost-btn" id="signout-btn">Sign out</button>
     </div>
 
-    <div class="hero">
-      <h1>Choose a subject</h1>
-      <p>Organised by CBC Senior School pathway. Click a paper to open or download it.</p>
-    </div>
-
-    <div id="subjects-container"></div>
-
-    <div class="contact">
-      <div class="contact-inner">
-        <div class="contact-title">Get in touch</div>
-        <div class="contact-rows">
-          <div><span class="contact-label">Email:</span><a href="mailto:georgesmwangi3@gmail.com">georgesmwangi3@gmail.com</a></div>
-          <div><span class="contact-label">Call:</span><a href="tel:+254769905629">0769 905 629</a></div>
-          <div><span class="contact-label">WhatsApp:</span><a href="https://wa.me/254769905629" target="_blank" rel="noopener">0769 905 629</a></div>
-        </div>
+    <div class="wrap">
+      <div class="section-title">Upload an exam</div>
+      <div class="upload-card">
+        <form id="upload-form">
+          <div class="row2">
+            <div class="field"><label for="title">Title</label><input type="text" id="title" placeholder="Paper 1 — Physical Geography" required></div>
+            <div class="field"><label for="subject">Subject</label>
+              <select id="subject" required>
+                <optgroup label="Core Subjects">
+                  <option value="english">English</option>
+                  <option value="kiswahili-ksl">Kiswahili / Kenyan Sign Language</option>
+                  <option value="core-mathematics">Core Mathematics</option>
+                  <option value="essential-mathematics">Essential Mathematics</option>
+                  <option value="csl">Community Service Learning</option>
+                  <option value="pe">Physical Education</option>
+                </optgroup>
+                <optgroup label="STEM">
+                  <option value="biology">Biology</option>
+                  <option value="chemistry">Chemistry</option>
+                  <option value="physics">Physics</option>
+                  <option value="general-science">General Science</option>
+                  <option value="ict">ICT</option>
+                  <option value="computer-studies">Computer Studies</option>
+                  <option value="home-science">Home Science</option>
+                  <option value="agriculture">Agriculture</option>
+                  <option value="drawing-design">Drawing and Design</option>
+                  <option value="aviation-technology">Aviation Technology</option>
+                  <option value="building-construction">Building and Construction</option>
+                  <option value="electrical-technology">Electrical Technology</option>
+                  <option value="metal-technology">Metal Technology</option>
+                  <option value="power-mechanics">Power Mechanics</option>
+                  <option value="wood-technology">Wood Technology</option>
+                  <option value="marine-fisheries">Marine and Fisheries Technology</option>
+                </optgroup>
+                <optgroup label="Social Sciences">
+                  <option value="history-citizenship">History and Citizenship</option>
+                  <option value="geography">Geography</option>
+                  <option value="cre">Christian Religious Education</option>
+                  <option value="ire">Islamic Religious Education</option>
+                  <option value="hre">Hindu Religious Education</option>
+                  <option value="business-studies">Business Studies</option>
+                  <option value="literature-english">Literature in English</option>
+                  <option value="advanced-english">Advanced English</option>
+                  <option value="indigenous-languages">Indigenous Languages</option>
+                  <option value="fasihi-kiswahili">Fasihi ya Kiswahili</option>
+                  <option value="arabic">Arabic</option>
+                  <option value="french">French</option>
+                  <option value="german">German</option>
+                  <option value="mandarin">Mandarin</option>
+                </optgroup>
+                <optgroup label="Arts & Sports Science">
+                  <option value="sports-science">Sports Science</option>
+                  <option value="visual-arts">Visual Arts</option>
+                  <option value="performing-arts">Performing Arts</option>
+                  <option value="film-media">Film and Media Studies</option>
+                  <option value="fine-art">Fine Art</option>
+                </optgroup>
+              </select>
+            </div>
+          </div>
+          <div class="row2">
+            <div class="field"><label for="duration">Duration (optional)</label><input type="text" id="duration" placeholder="1 hr 30 min"></div>
+            <div class="field"><label for="file">File - PDF/DOCX, Max 10MB</label><input type="file" id="file" accept=".pdf,.doc,.docx" required></div>
+          </div>
+          <button type="submit" class="btn" id="upload-btn">Upload exam</button>
+        </form>
+        <div id="upload-status"></div>
       </div>
-    </div>
 
-    <div class="admin-link"><a href="admin.html">Admin login →</a></div>
+      <div class="section-title">Uploaded exams</div>
+      <div class="upload-card" id="exam-list"><div class="empty-note">Loading…</div></div>
+    </div>
   </div>
 
 <script>
   // ====== FILL THESE IN FROM YOUR SUPABASE PROJECT (Settings → API) ======
   const SUPABASE_URL = "https://jyibobbpwpjcxyzusitz.supabase.co";
   const SUPABASE_ANON_KEY = "sb_publishable_joFeRZ9vtYvj0GdZPbh5eQ_Cekr4g6x";
+  const BUCKET_NAME = "exams";
   // =========================================================================
-
-  const VISITOR_PASSWORD = "40518267@Gee";
 
   const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-  // CBC Senior School subject list, grouped by pathway
-  const GROUPS = [
-    { id: 'core',   label: 'Core Subjects' },
-    { id: 'stem',   label: 'STEM' },
-    { id: 'social', label: 'Social Sciences' },
-    { id: 'arts',   label: 'Arts & Sports Science' }
-  ];
+  const SUBJECT_COLOR_MAP = {
+    'geography': 'geo', 'sports-science': 'sport', 'ict': 'ict'
+  };
+  function getSubjectClass(subject){
+    return SUBJECT_COLOR_MAP[subject] || 'default';
+  }
 
-  const SUBJECTS = [
-    { id: 'english', name: 'English', group: 'core' },
-    { id: 'kiswahili-ksl', name: 'Kiswahili / Kenyan Sign Language', group: 'core' },
-    { id: 'core-mathematics', name: 'Core Mathematics', group: 'core' },
-    { id: 'essential-mathematics', name: 'Essential Mathematics', group: 'core' },
-    { id: 'csl', name: 'Community Service Learning', group: 'core' },
-    { id: 'pe', name: 'Physical Education', group: 'core' },
+  const loginScreen = document.getElementById('login-screen');
+  const panel = document.getElementById('panel');
+  const loginForm = document.getElementById('login-form');
+  const loginError = document.getElementById('login-error');
+  const signoutBtn = document.getElementById('signout-btn');
+  const uploadForm = document.getElementById('upload-form');
+  const uploadStatus = document.getElementById('upload-status');
+  const uploadBtn = document.getElementById('upload-btn');
+  const examListEl = document.getElementById('exam-list');
 
-    { id: 'biology', name: 'Biology', group: 'stem' },
-    { id: 'chemistry', name: 'Chemistry', group: 'stem' },
-    { id: 'physics', name: 'Physics', group: 'stem' },
-    { id: 'general-science', name: 'General Science', group: 'stem' },
-    { id: 'ict', name: 'ICT', group: 'stem' },
-    { id: 'computer-studies', name: 'Computer Studies', group: 'stem' },
-    { id: 'home-science', name: 'Home Science', group: 'stem' },
-    { id: 'agriculture', name: 'Agriculture', group: 'stem' },
-    { id: 'drawing-design', name: 'Drawing and Design', group: 'stem' },
-    { id: 'aviation-technology', name: 'Aviation Technology', group: 'stem' },
-    { id: 'building-construction', name: 'Building and Construction', group: 'stem' },
-    { id: 'electrical-technology', name: 'Electrical Technology', group: 'stem' },
-    { id: 'metal-technology', name: 'Metal Technology', group: 'stem' },
-    { id: 'power-mechanics', name: 'Power Mechanics', group: 'stem' },
-    { id: 'wood-technology', name: 'Wood Technology', group: 'stem' },
-    { id: 'marine-fisheries', name: 'Marine and Fisheries Technology', group: 'stem' },
-
-    { id: 'history-citizenship', name: 'History and Citizenship', group: 'social' },
-    { id: 'geography', name: 'Geography', group: 'social' },
-    { id: 'cre', name: 'Christian Religious Education', group: 'social' },
-    { id: 'ire', name: 'Islamic Religious Education', group: 'social' },
-    { id: 'hre', name: 'Hindu Religious Education', group: 'social' },
-    { id: 'business-studies', name: 'Business Studies', group: 'social' },
-    { id: 'literature-english', name: 'Literature in English', group: 'social' },
-    { id: 'advanced-english', name: 'Advanced English', group: 'social' },
-    { id: 'indigenous-languages', name: 'Indigenous Languages', group: 'social' },
-    { id: 'fasihi-kiswahili', name: 'Fasihi ya Kiswahili', group: 'social' },
-    { id: 'arabic', name: 'Arabic', group: 'social' },
-    { id: 'french', name: 'French', group: 'social' },
-    { id: 'german', name: 'German', group: 'social' },
-    { id: 'mandarin', name: 'Mandarin', group: 'social' },
-
-    { id: 'sports-science', name: 'Sports Science', group: 'arts' },
-    { id: 'visual-arts', name: 'Visual Arts', group: 'arts' },
-    { id: 'performing-arts', name: 'Performing Arts', group: 'arts' },
-    { id: 'film-media', name: 'Film and Media Studies', group: 'arts' },
-    { id: 'fine-art', name: 'Fine Art', group: 'arts' }
-  ];
-
-  const gate = document.getElementById('gate');
-  const dashboard = document.getElementById('dashboard');
-  const form = document.getElementById('gate-form');
-  const input = document.getElementById('password-input');
-  const errorMsg = document.getElementById('error-msg');
-  const lockBtn = document.getElementById('lock-btn');
-  const subjectsContainer = document.getElementById('subjects-container');
-
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    if(input.value === VISITOR_PASSWORD){
-      gate.style.display = 'none';
-      dashboard.style.display = 'block';
-      errorMsg.textContent = '';
-      renderSections();
-      loadExams();
+  async function checkSession(){
+    const { data } = await supabaseClient.auth.getSession();
+    if(data.session){
+      showPanel();
     } else {
-      errorMsg.textContent = 'Incorrect password. Try again.';
-      input.value = '';
-      input.focus();
+      loginScreen.style.display = 'flex';
+      panel.style.display = 'none';
+    }
+  }
+
+  function showPanel(){
+    loginScreen.style.display = 'none';
+    panel.style.display = 'block';
+    loadExamList();
+  }
+
+  loginForm.addEventListener('submit', async function(e){
+    e.preventDefault();
+    loginError.textContent = '';
+    const email = document.getElementById('email').value;
+    const pw = document.getElementById('pw').value;
+    const { error } = await supabaseClient.auth.signInWithPassword({ email: email, password: pw });
+    if(error){
+      loginError.textContent = error.message;
+    } else {
+      showPanel();
     }
   });
 
-  lockBtn.addEventListener('click', function(){
-    dashboard.style.display = 'none';
-    gate.style.display = 'flex';
-    input.value = '';
-    input.focus();
+  signoutBtn.addEventListener('click', async function(){
+    await supabaseClient.auth.signOut();
+    loginScreen.style.display = 'flex';
+    panel.style.display = 'none';
   });
 
-  function renderSections(){
-    subjectsContainer.innerHTML = GROUPS.map(function(g){
-      const subs = SUBJECTS.filter(function(s){ return s.group === g.id; });
-      return '<section class="group-section" data-group="' + g.id + '">' +
-        '<h2 class="group-title">' + g.label + '</h2>' +
-        '<div class="subjects-grid">' +
-        subs.map(function(s){
-          return '<div class="folder">' +
-            '<div class="folder-head"><span class="folder-dot"></span>' +
-            '<div><div class="folder-title">' + s.name + '</div>' +
-            '<div class="folder-count mono" id="count-' + s.id + '">0 papers</div></div></div>' +
-            '<ul class="paper-list" id="list-' + s.id + '"></ul>' +
-          '</div>';
-        }).join('') +
-        '</div></section>';
-    }).join('');
-  }
+  uploadForm.addEventListener('submit', async function(e){
+    e.preventDefault();
+    uploadStatus.textContent = 'Uploading…';
+    uploadStatus.className = '';
+    uploadBtn.disabled = true;
 
-  async function loadExams(){
+    try{
+      const title = document.getElementById('title').value.trim();
+      const subject = document.getElementById('subject').value;
+      const duration = document.getElementById('duration').value.trim();
+      const fileInput = document.getElementById('file');
+      const file = fileInput.files[0];
+
+      // VALIDATION
+      const allowed = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+      if(!allowed.includes(file.type)){
+        throw new Error('Only PDF and DOCX files allowed');
+      }
+      if(file.size > 10 * 1024 * 1024){
+        throw new Error('File too large. Max 10MB');
+      }
+
+      const safeName = Date.now() + '-' + file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+      const path = subject + '/' + safeName;
+
+      const { error: uploadError } = await supabaseClient
+       .storage.from(BUCKET_NAME)
+       .upload(path, file, { cacheControl: '3600', upsert: false });
+      if(uploadError) throw uploadError;
+
+      const { data: publicUrlData } = supabaseClient.storage.from(BUCKET_NAME).getPublicUrl(path);
+
+      const { error: insertError } = await supabaseClient
+       .from('exams')
+       .insert({
+          title: title,
+          subject: subject,
+          duration: duration,
+          file_path: path,
+          file_url: publicUrlData.publicUrl
+        });
+      if(insertError) throw insertError;
+
+      uploadStatus.textContent = 'Uploaded "' + title + '".';
+      uploadStatus.className = 'ok';
+      uploadForm.reset();
+      loadExamList();
+    } catch(err){
+      uploadStatus.textContent = 'Error: ' + err.message;
+      uploadStatus.className = 'err';
+    } finally {
+      uploadBtn.disabled = false;
+    }
+  });
+
+  async function loadExamList(){
     const { data, error } = await supabaseClient
-      .from('exams')
-      .select('*')
-      .order('created_at', { ascending: false });
+     .from('exams')
+     .select('*')
+     .order('created_at', { ascending: false });
 
     if(error){
-      console.error(error);
+      examListEl.innerHTML = '<div class="empty-note">Could not load exams: ' + error.message + '</div>';
+      return;
+    }
+    if(!data || data.length === 0){
+      examListEl.innerHTML = '<div class="empty-note">No exams uploaded yet.</div>';
       return;
     }
 
-    const bySubject = {};
-    (data || []).forEach(function(row){
-      if(!bySubject[row.subject]) bySubject[row.subject] = [];
-      bySubject[row.subject].push(row);
-    });
-
-    SUBJECTS.forEach(function(s){
-      const listEl = document.getElementById('list-' + s.id);
-      const countEl = document.getElementById('count-' + s.id);
-      const rows = bySubject[s.id] || [];
-      if(!listEl || !countEl) return;
-
-      countEl.textContent = rows.length + (rows.length === 1 ? ' paper' : ' papers');
-
-      if(rows.length === 0){
-        listEl.innerHTML = '<li class="empty-note">No papers uploaded yet.</li>';
-        return;
-      }
-
-      listEl.innerHTML = rows.map(function(row){
-        return '<li><a href="' + row.file_url + '" target="_blank" rel="noopener">' +
-          '<span><span class="paper-name">' + escapeHtml(row.title) + '</span><br>' +
-          '<span class="paper-meta">' + escapeHtml(row.duration || '') + '</span></span>' +
-          '<span class="go">→</span></a></li>';
-      }).join('');
-    });
+    examListEl.innerHTML = data.map(function(row){
+      return '<div class="exam-row" data-id="' + row.id + '" data-path="' + escapeAttr(row.file_path) + '">' +
+        '<div class="exam-info">' +
+          '<span class="subject-pill ' + getSubjectClass(row.subject) + '">' + row.subject + '</span>' +
+          '<span class="t">' + escapeHtml(row.title) + '</span>' +
+          '<div class="m">' + escapeHtml(row.duration || '') + '</div>' +
+        '</div>' +
+        '<div class="row-actions">' +
+          '<a class="download-btn" href="' + row.file_url + '" target="_blank">Download</a>' +
+          '<button class="delete-btn" onclick="deleteExam(\'' + row.id + '\', \'' + escapeAttr(row.file_path) + '\')">Delete</button>' +
+        '</div>' +
+      '</div>';
+    }).join('');
   }
+
+  window.deleteExam = async function(id, path){
+    if(!confirm('Delete this exam? This removes the file too.')) return;
+    await supabaseClient.storage.from(BUCKET_NAME).remove([path]);
+    await supabaseClient.from('exams').delete().eq('id', id);
+    loadExamList();
+  };
 
   function escapeHtml(str){
     const div = document.createElement('div');
     div.textContent = str || '';
     return div.innerHTML;
   }
+  function escapeAttr(str){ return (str || '').replace(/'/g, "\\'"); }
+
+  checkSession();
 </script>
 </body>
-  </html>
-  
+                    </html>
