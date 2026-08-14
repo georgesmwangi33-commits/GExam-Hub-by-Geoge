@@ -184,6 +184,8 @@
   const SUPABASE_ANON_KEY = "sb_publishable_joFeRZ9vtYvj0GdZPbh5eQ_Cekr4g6x";
   // =========================================================================
 
+  const VISITOR_PASSWORD = "40518267@Gee";
+
   const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
   // CBC Senior School subject list, grouped by pathway
@@ -249,34 +251,18 @@
   const lockBtn = document.getElementById('lock-btn');
   const subjectsContainer = document.getElementById('subjects-container');
 
-  form.addEventListener('submit', async function(e){
+  form.addEventListener('submit', function(e){
     e.preventDefault();
     errorMsg.textContent = '';
-    const submitBtn = form.querySelector('.enter-btn');
-    submitBtn.disabled = true;
-
-    try {
-      const res = await fetch('/.netlify/functions/verify-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password: input.value })
-      });
-      const data = await res.json();
-
-      if (data.ok) {
-        gate.style.display = 'none';
-        dashboard.style.display = 'block';
-        renderSections();
-        loadExams();
-      } else {
-        errorMsg.textContent = 'Incorrect password. Try again.';
-        input.value = '';
-        input.focus();
-      }
-    } catch (err) {
-      errorMsg.textContent = 'Something went wrong. Try again.';
-    } finally {
-      submitBtn.disabled = false;
+    if(input.value === VISITOR_PASSWORD){
+      gate.style.display = 'none';
+      dashboard.style.display = 'block';
+      renderSections();
+      loadExams();
+    } else {
+      errorMsg.textContent = 'Incorrect password. Try again.';
+      input.value = '';
+      input.focus();
     }
   });
 
@@ -351,5 +337,5 @@
   }
 </script>
 </body>
-                                                                </html>
-                                                                
+  </html>
+  
