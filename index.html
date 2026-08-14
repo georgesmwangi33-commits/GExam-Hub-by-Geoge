@@ -37,14 +37,24 @@
   .gate-card h1{ font-size:34px; font-weight:600; margin-bottom:8px; }
   .gate-card p.sub{ color:var(--chalk-dim); font-size:14.5px; margin-bottom:32px; line-height:1.5; }
   .field{ position:relative; margin-bottom:14px; }
-  input[type="password"]{
+  input[type="password"], input[type="text"]{
     width:100%; background:var(--board-2); border:1px solid var(--rule); color:var(--chalk);
-    font-family:'IBM Plex Mono', monospace; font-size:15px; padding:14px 16px; border-radius:6px;
+    font-family:'IBM Plex Mono', monospace; font-size:15px; padding:14px 44px 14px 16px; border-radius:6px;
     outline:none; transition:border-color 0.15s ease, background 0.15s ease; letter-spacing:0.03em;
   }
   input::placeholder{ color:#8f9691; }
   input:focus{ border-color:var(--sport); background:#28403a; }
   input:focus-visible{ outline:2px solid var(--sport); outline-offset:2px; }
+
+  /* NEW: Eye button */
+  .toggle-pass{
+    position:absolute; right:10px; top:50%; transform:translateY(-50%);
+    background:transparent; border:none; cursor:pointer; padding:6px;
+    color:var(--chalk-dim); display:flex; align-items:center; justify-content:center;
+  }
+  .toggle-pass:hover{ color:var(--chalk); }
+  .toggle-pass:focus-visible{ outline:2px solid var(--sport); outline-offset:2px; border-radius:4px; }
+
   .enter-btn{
     width:100%; padding:14px 16px; border-radius:6px; border:none; background:var(--chalk); color:var(--board);
     font-family:'IBM Plex Sans', sans-serif; font-weight:600; font-size:15px; cursor:pointer;
@@ -144,7 +154,16 @@
       <h1>Enter to continue</h1>
       <p class="sub">A personal archive of exam papers and study material, built to sharpen how you learn. Enter the password to get in.</p>
       <form id="gate-form" autocomplete="off">
-        <div class="field"><input type="password" id="password-input" placeholder="Password" required></div>
+        <div class="field">
+          <input type="password" id="password-input" placeholder="Password" required>
+          <!-- NEW: Eye toggle button -->
+          <button type="button" class="toggle-pass" id="toggle-pass" aria-label="Show password">
+            <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+          </button>
+        </div>
         <button type="submit" class="enter-btn">Open GExam Hub</button>
       </form>
       <div id="error-msg" role="alert"></div>
@@ -184,8 +203,6 @@
   const SUPABASE_ANON_KEY = "sb_publishable_joFeRZ9vtYvj0GdZPbh5eQ_Cekr4g6x";
   // =========================================================================
 
-  const VISITOR_PASSWORD = "40518267@Gee";
-
   const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
   // CBC Senior School subject list, grouped by pathway
@@ -203,7 +220,6 @@
     { id: 'essential-mathematics', name: 'Essential Mathematics', group: 'core' },
     { id: 'csl', name: 'Community Service Learning', group: 'core' },
     { id: 'pe', name: 'Physical Education', group: 'core' },
-
     { id: 'biology', name: 'Biology', group: 'stem' },
     { id: 'chemistry', name: 'Chemistry', group: 'stem' },
     { id: 'physics', name: 'Physics', group: 'stem' },
@@ -220,7 +236,6 @@
     { id: 'power-mechanics', name: 'Power Mechanics', group: 'stem' },
     { id: 'wood-technology', name: 'Wood Technology', group: 'stem' },
     { id: 'marine-fisheries', name: 'Marine and Fisheries Technology', group: 'stem' },
-
     { id: 'history-citizenship', name: 'History and Citizenship', group: 'social' },
     { id: 'geography', name: 'Geography', group: 'social' },
     { id: 'cre', name: 'Christian Religious Education', group: 'social' },
@@ -235,7 +250,6 @@
     { id: 'french', name: 'French', group: 'social' },
     { id: 'german', name: 'German', group: 'social' },
     { id: 'mandarin', name: 'Mandarin', group: 'social' },
-
     { id: 'sports-science', name: 'Sports Science', group: 'arts' },
     { id: 'visual-arts', name: 'Visual Arts', group: 'arts' },
     { id: 'performing-arts', name: 'Performing Arts', group: 'arts' },
@@ -251,18 +265,47 @@
   const lockBtn = document.getElementById('lock-btn');
   const subjectsContainer = document.getElementById('subjects-container');
 
-  form.addEventListener('submit', function(e){
+  // NEW: Eye toggle logic
+  const togglePass = document.getElementById('toggle-pass');
+  const eyeIcon = document.getElementById('eye-icon');
+  togglePass.addEventListener('click', function(){
+    const isPassword = input.type === 'password';
+    input.type = isPassword ? 'text' : 'password';
+    togglePass.setAttribute('aria-label', isPassword ? 'Hide password' : 'Show password');
+    // switch icon to eye-off when showing
+    eyeIcon.innerHTML = isPassword 
+      ? '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line>'
+      : '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>';
+  });
+
+  form.addEventListener('submit', async function(e){
     e.preventDefault();
     errorMsg.textContent = '';
-    if(input.value === VISITOR_PASSWORD){
-      gate.style.display = 'none';
-      dashboard.style.display = 'block';
-      renderSections();
-      loadExams();
-    } else {
-      errorMsg.textContent = 'Incorrect password. Try again.';
-      input.value = '';
-      input.focus();
+    const submitBtn = form.querySelector('.enter-btn');
+    submitBtn.disabled = true;
+
+    try {
+      const res = await fetch('/.netlify/functions/verify-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: input.value })
+      });
+      const data = await res.json();
+
+      if (data.ok) {
+        gate.style.display = 'none';
+        dashboard.style.display = 'block';
+        renderSections();
+        loadExams();
+      } else {
+        errorMsg.textContent = 'Incorrect password. Try again.';
+        input.value = '';
+        input.focus();
+      }
+    } catch (err) {
+      errorMsg.textContent = 'Something went wrong. Try again.';
+    } finally {
+      submitBtn.disabled = false;
     }
   });
 
@@ -337,5 +380,4 @@
   }
 </script>
 </body>
-  </html>
-  
+</html>
